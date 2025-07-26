@@ -10,14 +10,13 @@
     --gap-spacing: 1.5rem; /* Gap between grid items */
     --hot-sale-badge-bg: #e74c3c; /* Red */
     --hot-sale-badge-text: #fff;
-    --nav-bg-color: #333; /* Dark background for fixed nav */
-    --nav-text-color: #fff;
-    --nav-hover-color: #555;
-    --section-header-bg: #f5f5f5;
-    --section-header-border: #ddd;
     --button-bg: #007bff;
     --button-text: #fff;
     --button-hover-bg: #0056b3;
+    --back-to-top-bg: #007bff; /* สีปุ่มกลับด้านบน */
+    --back-to-top-text-color: #fff;
+    --section-header-bg: #e9ecef; /* Added for section title background */
+    --section-header-border: #dee2e6; /* Added for section title border */
 }
 
 /* -- Global Styles -- */
@@ -27,7 +26,6 @@ body {
     background-color: var(--bg-color);
     color: var(--primary-color);
     line-height: 1.6;
-    padding-left: 200px; /* Space for fixed left navigation */
 }
 
 .menu-page-wrapper {
@@ -43,55 +41,13 @@ body {
     font-size: 2.5rem;
 }
 
-/* -- Main Navigation Styles (Fixed Top-Left) -- */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100%;
-    background-color: var(--nav-bg-color);
-    color: var(--nav-text-color);
-    padding-top: 2rem;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    overflow-y: auto; /* Enable scrolling if menu is long */
-    z-index: 1000;
-}
-
-.main-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.main-nav li a {
-    display: block;
-    padding: 1rem 1.5rem;
-    color: var(--nav-text-color);
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-}
-
-.main-nav li a:hover,
-.main-nav li a.active {
-    background-color: var(--nav-hover-color);
-}
-
-.nav-back-to-top {
-    margin-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1rem;
-}
-
-/* -- Section Styles -- */
+/* -- Section Styles (No Toggle) -- */
 .food-category-section {
     background-color: var(--card-bg-color);
     border-radius: 10px;
     margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    overflow: hidden; /* For smooth collapse/expand transition */
-    transition: all 0.4s ease-out; /* For collapse/expand animation */
-    padding-bottom: 1px; /* To prevent margin collapse with grid */
+    overflow: hidden; /* Ensures rounded corners are applied */
 }
 
 .section-title {
@@ -101,24 +57,7 @@ body {
     margin: 0;
     font-size: 1.8rem;
     color: var(--primary-color);
-    cursor: pointer; /* Indicate clickable */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.section-toggle-icon {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-.food-category-section.collapsed .section-toggle-icon {
-    transform: rotate(-90deg); /* Rotate icon when collapsed */
-}
-
-.food-category-section.collapsed .food-menu-grid,
-.food-category-section.collapsed .show-all-btn {
-    display: none; /* Hide content when section is collapsed */
+    text-align: left; /* Ensure title is left-aligned */
 }
 
 /* -- Food Menu Grid Styles -- */
@@ -126,10 +65,9 @@ body {
     display: grid;
     gap: var(--gap-spacing);
     padding: var(--gap-spacing) var(--card-padding); /* Added padding inside grid */
-    transition: all 0.4s ease-out;
 }
 
-/* Initial desktop layout: 3 columns */
+/* Desktop layout: 3 columns */
 .food-menu-grid {
     grid-template-columns: repeat(3, 1fr);
 }
@@ -143,28 +81,6 @@ body {
 
 /* Mobile layout: 2 columns */
 @media (max-width: 599px) {
-    body {
-        padding-left: 0; /* Remove padding on small screens */
-    }
-    .main-nav {
-        position: static; /* Make nav static on small screens */
-        width: 100%;
-        height: auto;
-        padding-top: 1rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        text-align: center;
-    }
-    .main-nav ul {
-        display: flex; /* Display nav items horizontally */
-        flex-wrap: wrap; /* Wrap if too many items */
-        justify-content: center;
-    }
-    .main-nav li a {
-        padding: 0.8rem 1rem;
-    }
-    .nav-back-to-top {
-        display: none; /* Hide back to top on mobile nav */
-    }
     .food-menu-grid {
         grid-template-columns: repeat(2, 1fr); /* 2 columns */
     }
@@ -177,8 +93,8 @@ body {
     border: 1px solid var(--card-border-color);
     border-radius: 8px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Use flex for internal layout */
+    flex-direction: column; /* Stack image and details */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease-in-out;
 }
@@ -235,33 +151,37 @@ body {
 .food-item__details {
     padding: var(--card-padding);
     flex-grow: 1; /* Allow details section to fill remaining space */
-    display: flex; /* Make it a flex container */
+    display: flex; /* Use flex for name/price layout */
     flex-direction: column; /* Stack name and price vertically */
-    justify-content: flex-start; /* Align content to the top (name first) */
+    justify-content: flex-start; /* Aligns content to the top */
+    align-items: flex-start; /* Aligns content to the left */
 }
 
 .food-item__name {
     font-size: 1.15rem;
     color: var(--primary-color);
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.25rem 0; /* Reduced bottom margin for closer price */
     line-height: 1.3;
     word-wrap: break-word;
-    flex-shrink: 0; /* Prevent text from shrinking */
+    flex-shrink: 0;
+    width: 100%; /* Allow name to take full width and wrap */
 }
 
 .food-item__price {
     font-size: 1.25rem;
     color: var(--accent-color);
     font-weight: bold;
-    margin-top: auto; /* Pushes price to the bottom if name is short */
-    /* text-align: left; /* Prices will naturally align left by default flex-start */
+    margin: 0; /* Reset margins */
+    text-align: left; /* Explicitly left align */
+    word-wrap: break-word; /* Allow long prices to wrap */
+    width: 100%; /* Allow price to take full width and wrap */
 }
 
-/* -- Show All Button -- */
-.show-all-btn {
-    display: block; /* Make it a block button */
-    width: calc(100% - (var(--card-padding) * 2)); /* Full width within padding */
-    margin: var(--gap-spacing) auto; /* Center button */
+/* -- Load More Button -- */
+.load-more-btn {
+    display: block;
+    width: calc(100% - (var(--card-padding) * 2));
+    margin: var(--gap-spacing) auto;
     padding: 0.8rem 1.5rem;
     background-color: var(--button-bg);
     color: var(--button-text);
@@ -272,16 +192,92 @@ body {
     transition: background-color 0.2s ease;
 }
 
-.show-all-btn:hover {
+.load-more-btn:hover {
     background-color: var(--button-hover-bg);
 }
 
-/* Styles for initially hidden items */
-.food-item.additional-item {
+/* Styles for initially hidden items (items beyond the first 10) */
+.food-menu-grid .food-item:nth-child(n + 11) { /* Hide items from the 11th onwards */
     display: none;
 }
 
-/* Styles to show all items */
-.food-menu-grid.expanded .food-item.additional-item {
-    display: flex; /* Or display: block depending on original item display */
+/* When "load-more-btn" is clicked, JavaScript will add 'show-all' class to the grid */
+.food-menu-grid.show-all .food-item:nth-child(n + 11) {
+    display: flex; /* Show all items */
+}
+
+/* -- Back to Top Button -- */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 25px; /* ระยะห่างจากด้านล่าง */
+    right: 25px;  /* ระยะห่างจากด้านขวา */
+    background-color: var(--back-to-top-bg);
+    color: var(--back-to-top-text-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    display: flex;
+    flex-direction: column; /* จัดข้อความและไอคอนแนวตั้ง */
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.8rem; /* ขนาดข้อความ "กลับด้านบน" */
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, opacity 0.3s ease;
+    opacity: 0; /* ซ่อนไว้ตอนแรก */
+    visibility: hidden; /* ซ่อนจากการมองเห็นและการ interact */
+    z-index: 999;
+}
+
+.back-to-top-btn.show {
+    opacity: 1; /* แสดงเมื่อมีการเลื่อนหน้าจอ */
+    visibility: visible;
+}
+
+.back-to-top-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.back-to-top-text {
+    font-size: 0.65rem; /* ข้อความ "กลับด้านบน" เล็กกว่า */
+    white-space: nowrap;
+    position: absolute; /* จัดตำแหน่งข้อความ */
+    left: -70px; /* ย้ายไปทางซ้ายของปุ่ม */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color); /* สีข้อความปกติ */
+    background-color: transparent; /* ไม่มีพื้นหลัง */
+    padding: 5px 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* ไม่ให้ข้อความบล็อกการคลิกปุ่ม */
+    opacity: 0; /* ซ่อนข้อความไว้ตอนแรก */
+}
+
+/* Show text when hovering over the button */
+.back-to-top-btn:hover .back-to-top-text {
+    opacity: 1;
+}
+
+.back-to-top-icon {
+    font-size: 1.5rem; /* ขนาดลูกศร */
+    line-height: 1;
+    color: var(--back-to-top-text-color);
+}
+
+
+/* Adjust for screens where the back-to-top button might overlap content or be too big */
+@media (max-width: 480px) {
+    .back-to-top-btn {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+        right: 15px;
+    }
+    .back-to-top-icon {
+        font-size: 1.2rem;
+    }
+    .back-to-top-text {
+        display: none; /* Hide text on very small screens to save space */
+    }
 }
