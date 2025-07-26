@@ -1,64 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Section Toggle Logic
-    document.querySelectorAll('.section-title').forEach(title => {
-        title.addEventListener('click', () => {
-            const section = title.closest('.food-category-section');
-            section.classList.toggle('collapsed'); // Toggle collapsed class
-            const icon = title.querySelector('.section-toggle-icon');
-            if (section.classList.contains('collapsed')) {
-                icon.textContent = '▶'; // Right arrow when collapsed
-            } else {
-                icon.textContent = '▼'; // Down arrow when expanded
-            }
-        });
-    });
 
-    // Initialize all sections as expanded (or collapsed if you prefer)
-    document.querySelectorAll('.food-category-section').forEach(section => {
-        // By default, let's start them expanded. If you want them collapsed by default,
-        // add 'collapsed' class to the HTML initially and uncomment below line.
-        // section.classList.add('collapsed');
-        // section.querySelector('.section-toggle-icon').textContent = '▶';
-    });
-
-
-    // 2. "Show All / Hide" Items Logic within a section
-    document.querySelectorAll('.show-all-btn').forEach(button => {
+    // 1. "Show All / Hide" Items Logic within a section
+    document.querySelectorAll('.load-more-btn').forEach(button => {
         button.addEventListener('click', () => {
             const targetSectionId = button.dataset.target;
             const targetSectionGrid = document.querySelector(`#${targetSectionId} .food-menu-grid`);
 
             if (targetSectionGrid) {
-                targetSectionGrid.classList.toggle('expanded'); // Toggle expanded class on grid
-
-                // Change button text based on state
-                if (targetSectionGrid.classList.contains('expanded')) {
-                    button.textContent = 'ย่อรายการ';
-                } else {
-                    button.textContent = 'แสดงทั้งหมด (100 รายการ)';
-                }
+                targetSectionGrid.classList.add('show-all'); // Add 'show-all' class to the grid
+                button.style.display = 'none'; // Hide the "Load More" button after showing all
+                // สำหรับ scenario จริงที่มี 100+ รายการ คุณอาจต้องโหลดข้อมูลเพิ่มเติมจาก JSON/API ที่นี่
+                // ตัวอย่าง:
+                /*
+                fetch(`data/${targetSectionId}.json`) // สมมติว่ามีไฟล์ JSON สำหรับแต่ละหมวดหมู่
+                    .then(response => response.json())
+                    .then(items => {
+                        // สร้างและเพิ่ม food-item element เข้าไปใน grid
+                        items.forEach(itemData => {
+                            const newItem = document.createElement('div');
+                            newItem.classList.add('food-item');
+                            // Populate newItem's innerHTML based on itemData
+                            // นี่จะซับซ้อนขึ้นอยู่กับโครงสร้างข้อมูลของคุณ
+                            targetSectionGrid.appendChild(newItem);
+                        });
+                        button.style.display = 'none'; // ซ่อนปุ่มหลังจากโหลดเสร็จ
+                    })
+                    .catch(error => console.error('Error loading items:', error));
+                */
             }
         });
     });
 
-    // Initialize items display based on 'additional-item' class
-    // This is handled by CSS: .food-item.additional-item { display: none; }
-    // and .food-menu-grid.expanded .food-item.additional-item { display: flex; }
+    // 2. Back to Top Button Visibility
+    const backToTopBtn = document.getElementById('backToTopBtn');
 
-    // 3. Smooth Scrolling for Navigation Links
-    document.querySelectorAll('.main-nav a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default jump behavior
+    // แสดง/ซ่อนปุ่มตามตำแหน่งการเลื่อนหน้าจอ
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) { // แสดงปุ่มเมื่อเลื่อนหน้าจอลงมา 300px
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - (window.innerHeight * 0.1), // Scroll to target, slightly above it
-                    behavior: 'smooth'
-                });
-            }
+    // การเลื่อนกลับไปด้านบนอย่างนุ่มนวลเมื่อคลิกปุ่ม (โดยปกติเบราว์เซอร์จะจัดการให้เองด้วย href="#top")
+    // หากต้องการควบคุมเพิ่มเติม หรือหากคุณปิดการทำงาน default ของ anchor:
+    /*
+    backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // ป้องกันการทำงาน default ของ anchor
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // เลื่อนอย่างนุ่มนวล
         });
     });
+    */
 });
