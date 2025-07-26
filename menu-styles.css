@@ -10,9 +10,12 @@
     --gap-spacing: 1.5rem; /* Gap between grid items */
     --hot-sale-badge-bg: #e74c3c; /* Red */
     --hot-sale-badge-text: #fff;
-    --button-bg: #007bff;
+    
+    /* Updated Button Colors for better contrast */
+    --button-bg: #28a745; /* Green */ 
     --button-text: #fff;
-    --button-hover-bg: #0056b3;
+    --button-hover-bg: #218838; /* Darker Green on hover */
+
     --back-to-top-bg: #007bff; /* สีปุ่มกลับด้านบน */
     --back-to-top-text-color: #fff;
     --section-header-bg: #e9ecef; /* Added for section title background */
@@ -26,6 +29,9 @@ body {
     background-color: var(--bg-color);
     color: var(--primary-color);
     line-height: 1.6;
+    /* 1. เพิ่ม padding ที่ด้านขวาของหน้า page */
+    padding-right: 1.5rem; /* เพิ่ม padding ด้านขวา */
+    box-sizing: border-box; /* ให้ padding ไม่เพิ่มขนาดรวมของ body */
 }
 
 .menu-page-wrapper {
@@ -180,20 +186,34 @@ body {
 /* -- Load More Button -- */
 .load-more-btn {
     display: block;
-    width: calc(100% - (var(--card-padding) * 2));
-    margin: var(--gap-spacing) auto;
-    padding: 0.8rem 1.5rem;
+    width: calc(100% - (var(--card-padding) * 2)); /* ความกว้างเต็มที่ของ container */
+    max-width: 300px; /* กำหนดความกว้างสูงสุด */
+    margin: var(--gap-spacing) auto; /* จัดกึ่งกลางด้วย margin auto */
+    padding: 1rem 2rem; /* เพิ่ม padding ให้ปุ่มใหญ่ขึ้น */
     background-color: var(--button-bg);
     color: var(--button-text);
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    /* ปรับ border-radius ให้โค้งมน */
+    border-radius: 25px; /* ค่าเริ่มต้น */
+    font-size: 1.1rem; /* เพิ่มขนาด font เป็น 16px (1rem = 16px ถ้า default browser font size เป็น 16px) */
+    font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้น */
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    text-align: center; /* จัดข้อความกลาง */
 }
+
+/* เพิ่ม responsive border-radius */
+@media (max-width: 599px) {
+    .load-more-btn {
+        border-radius: 20px;
+        font-size: 1rem;
+    }
+}
+
 
 .load-more-btn:hover {
     background-color: var(--button-hover-bg);
+    transform: translateY(-2px); /* เพิ่ม animation เล็กน้อยเมื่อ hover */
 }
 
 /* Styles for initially hidden items (items beyond the first 10) */
@@ -268,6 +288,9 @@ body {
 
 /* Adjust for screens where the back-to-top button might overlap content or be too big */
 @media (max-width: 480px) {
+    body {
+        padding-right: 0.5rem; /* ลด padding ด้านขวาบนมือถือ */
+    }
     .back-to-top-btn {
         width: 40px;
         height: 40px;
