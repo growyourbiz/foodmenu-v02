@@ -1,0 +1,287 @@
+/* -- CSS Variables -- */
+:root {
+    --primary-color: #333;
+    --secondary-color: #666;
+    --accent-color: #e44d26; /* Orange-red for accents/prices */
+    --bg-color: #f0f2f5; /* Light grey background for the page */
+    --card-bg-color: #fff;
+    --card-border-color: #eee;
+    --card-padding: 1rem;
+    --gap-spacing: 1.5rem; /* Gap between grid items */
+    --hot-sale-badge-bg: #e74c3c; /* Red */
+    --hot-sale-badge-text: #fff;
+    --nav-bg-color: #333; /* Dark background for fixed nav */
+    --nav-text-color: #fff;
+    --nav-hover-color: #555;
+    --section-header-bg: #f5f5f5;
+    --section-header-border: #ddd;
+    --button-bg: #007bff;
+    --button-text: #fff;
+    --button-hover-bg: #0056b3;
+}
+
+/* -- Global Styles -- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    line-height: 1.6;
+    padding-left: 200px; /* Space for fixed left navigation */
+}
+
+.menu-page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem var(--gap-spacing);
+}
+
+.page-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin: 2rem 0;
+    font-size: 2.5rem;
+}
+
+/* -- Main Navigation Styles (Fixed Top-Left) -- */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: var(--nav-bg-color);
+    color: var(--nav-text-color);
+    padding-top: 2rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Enable scrolling if menu is long */
+    z-index: 1000;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--nav-text-color);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.main-nav li a:hover,
+.main-nav li a.active {
+    background-color: var(--nav-hover-color);
+}
+
+.nav-back-to-top {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1rem;
+}
+
+/* -- Section Styles -- */
+.food-category-section {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden; /* For smooth collapse/expand transition */
+    transition: all 0.4s ease-out; /* For collapse/expand animation */
+    padding-bottom: 1px; /* To prevent margin collapse with grid */
+}
+
+.section-title {
+    background-color: var(--section-header-bg);
+    border-bottom: 1px solid var(--section-header-border);
+    padding: 1.5rem var(--card-padding);
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    cursor: pointer; /* Indicate clickable */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-toggle-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.food-category-section.collapsed .section-toggle-icon {
+    transform: rotate(-90deg); /* Rotate icon when collapsed */
+}
+
+.food-category-section.collapsed .food-menu-grid,
+.food-category-section.collapsed .show-all-btn {
+    display: none; /* Hide content when section is collapsed */
+}
+
+/* -- Food Menu Grid Styles -- */
+.food-menu-grid {
+    display: grid;
+    gap: var(--gap-spacing);
+    padding: var(--gap-spacing) var(--card-padding); /* Added padding inside grid */
+    transition: all 0.4s ease-out;
+}
+
+/* Initial desktop layout: 3 columns */
+.food-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Tablet layout: 2 columns */
+@media (max-width: 991px) {
+    .food-menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile layout: 2 columns */
+@media (max-width: 599px) {
+    body {
+        padding-left: 0; /* Remove padding on small screens */
+    }
+    .main-nav {
+        position: static; /* Make nav static on small screens */
+        width: 100%;
+        height: auto;
+        padding-top: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .main-nav ul {
+        display: flex; /* Display nav items horizontally */
+        flex-wrap: wrap; /* Wrap if too many items */
+        justify-content: center;
+    }
+    .main-nav li a {
+        padding: 0.8rem 1rem;
+    }
+    .nav-back-to-top {
+        display: none; /* Hide back to top on mobile nav */
+    }
+    .food-menu-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+}
+
+
+/* -- Food Item Card Styles -- */
+.food-item {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.food-item:hover {
+    transform: translateY(-5px);
+}
+
+/* -- Image Wrapper & Image -- */
+.food-item__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio (Square) */
+    overflow: hidden;
+}
+
+.food-item__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* -- Hot Sale Badge -- */
+.food-item__badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--hot-sale-badge-bg);
+    color: var(--hot-sale-badge-text);
+    padding: 0.3em 0.8em;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 10;
+    min-width: 45px; /* Adjust for more circular shape */
+    height: 45px;   /* Adjust for more circular shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+}
+
+.food-item__badge.is-hot-sale {
+    display: flex; /* Show when 'is-hot-sale' class is present */
+}
+
+/* -- Food Item Details (Name & Price) -- */
+.food-item__details {
+    padding: var(--card-padding);
+    flex-grow: 1; /* Allow details section to fill remaining space */
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Stack name and price vertically */
+    justify-content: flex-start; /* Align content to the top (name first) */
+}
+
+.food-item__name {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+    word-wrap: break-word;
+    flex-shrink: 0; /* Prevent text from shrinking */
+}
+
+.food-item__price {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-top: auto; /* Pushes price to the bottom if name is short */
+    /* text-align: left; /* Prices will naturally align left by default flex-start */
+}
+
+/* -- Show All Button -- */
+.show-all-btn {
+    display: block; /* Make it a block button */
+    width: calc(100% - (var(--card-padding) * 2)); /* Full width within padding */
+    margin: var(--gap-spacing) auto; /* Center button */
+    padding: 0.8rem 1.5rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.show-all-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Styles for initially hidden items */
+.food-item.additional-item {
+    display: none;
+}
+
+/* Styles to show all items */
+.food-menu-grid.expanded .food-item.additional-item {
+    display: flex; /* Or display: block depending on original item display */
+}
