@@ -9,24 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetSectionGrid) {
                 targetSectionGrid.classList.add('show-all'); // Add 'show-all' class to the grid
                 button.style.display = 'none'; // Hide the "Load More" button after showing all
-                // สำหรับ scenario จริงที่มี 100+ รายการ คุณอาจต้องโหลดข้อมูลเพิ่มเติมจาก JSON/API ที่นี่
-                // ตัวอย่าง:
-                /*
-                fetch(`data/${targetSectionId}.json`) // สมมติว่ามีไฟล์ JSON สำหรับแต่ละหมวดหมู่
-                    .then(response => response.json())
-                    .then(items => {
-                        // สร้างและเพิ่ม food-item element เข้าไปใน grid
-                        items.forEach(itemData => {
-                            const newItem = document.createElement('div');
-                            newItem.classList.add('food-item');
-                            // Populate newItem's innerHTML based on itemData
-                            // นี่จะซับซ้อนขึ้นอยู่กับโครงสร้างข้อมูลของคุณ
-                            targetSectionGrid.appendChild(newItem);
-                        });
-                        button.style.display = 'none'; // ซ่อนปุ่มหลังจากโหลดเสร็จ
-                    })
-                    .catch(error => console.error('Error loading items:', error));
-                */
             }
         });
     });
@@ -43,8 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // การเลื่อนกลับไปด้านบนอย่างนุ่มนวลเมื่อคลิกปุ่ม (โดยปกติเบราว์เซอร์จะจัดการให้เองด้วย href="#top")
-    // หากต้องการควบคุมเพิ่มเติม หรือหากคุณปิดการทำงาน default ของ anchor:
+    // การเลื่อนกลับไปด้านบนอย่างนุ่มนวลเมื่อคลิกปุ่ม
+    // เราใช้ href="#top" ใน HTML ซึ่งเบราว์เซอร์ส่วนใหญ่จะจัดการ smooth scroll ให้เอง
+    // หากต้องการควบคุมเอง สามารถใช้โค้ดด้านล่างนี้ (แต่ต้องเอา href="#top" ออกจาก HTML)
     /*
     backToTopBtn.addEventListener('click', (e) => {
         e.preventDefault(); // ป้องกันการทำงาน default ของ anchor
