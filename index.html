@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe Menu - เมนูร้านกาแฟ</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>☕ My Cafe Menu</h1>
+      <p>ยินดีต้อนรับสู่คาเฟ่ของเรา เลือกเมนูที่คุณชอบได้เลย!</p>
+    </header>
+
+    <div class="container">
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu1.jpg', 'อเมริกาโน่เย็น', '60 บาท')"
+      >
+        <img
+          src="images/menu1.jpg"
+          alt="อเมริกาโน่เย็น"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>อเมริกาโน่เย็น</h3>
+          <p class="price">60 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu2.jpg', 'ลาเต้ร้อน', '65 บาท')"
+      >
+        <img
+          src="images/menu2.jpg"
+          alt="ลาเต้ร้อน"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>ลาเต้ร้อน</h3>
+          <p class="price">65 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu3.jpg', 'ชาเขียวมัทฉะ', '70 บาท')"
+      >
+        <img
+          src="images/menu3.jpg"
+          alt="ชาเขียวมัทฉะ"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>ชาเขียวมัทฉะ</h3>
+          <p class="price">70 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu4.jpg', 'โกโก้ปั่น', '55 บาท')"
+      >
+        <img
+          src="images/menu4.jpg"
+          alt="โกโก้ปั่น"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>โกโก้ปั่น</h3>
+          <p class="price">55 บาท</p>
+        </div>
+      </div>
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu1.jpg', 'อเมริกาโน่เย็น', '60 บาท')"
+      >
+        <img
+          src="images/menu1.jpg"
+          alt="อเมริกาโน่เย็น"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>อเมริกาโน่เย็น</h3>
+          <p class="price">60 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu2.jpg', 'ลาเต้ร้อน', '65 บาท')"
+      >
+        <img
+          src="images/menu2.jpg"
+          alt="ลาเต้ร้อน"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>ลาเต้ร้อน</h3>
+          <p class="price">65 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu3.jpg', 'ชาเขียวมัทฉะ', '70 บาท')"
+      >
+        <img
+          src="images/menu3.jpg"
+          alt="ชาเขียวมัทฉะ"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>ชาเขียวมัทฉะ</h3>
+          <p class="price">70 บาท</p>
+        </div>
+      </div>
+
+      <div
+        class="menu-item"
+        onclick="openModal('images/menu4.jpg', 'โกโก้ปั่น', '55 บาท')"
+      >
+        <img
+          src="images/menu4.jpg"
+          alt="โกโก้ปั่น"
+          onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
+        />
+        <div class="menu-info">
+          <h3>โกโก้ปั่น</h3>
+          <p class="price">55 บาท</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2024 My Cafe | เปิดบริการทุกวัน 8:00 - 18:00 น.</p>
+    </footer>
+
+    <div id="myModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="modal-content">
+        <img id="modal-img" src="" />
+        <div class="modal-details">
+          <h2 id="modal-title"></h2>
+          <p id="modal-price"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
